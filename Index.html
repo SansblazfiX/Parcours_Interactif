@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPO – Lycée Albert Camus</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  .map-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Overlay for buttons positioned over the image */
+  .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  /* Power button style */
+  .btn-power {
+    position: absolute;
+    pointer-events: all;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: radial-gradient(circle at 35% 35%, #6ec6f5, #2a6dd9 50%, #1a3fa0);
+    box-shadow: 0 0 18px 4px rgba(80, 160, 255, 0.7), 0 2px 8px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+    animation: pulse 2.5s infinite ease-in-out;
+  }
+
+  .btn-power:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 28px 8px rgba(80, 180, 255, 0.9), 0 4px 12px rgba(0,0,0,0.5);
+    animation: none;
+  }
+
+  .btn-power svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.8));
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 18px 4px rgba(80, 160, 255, 0.7), 0 2px 8px rgba(0,0,0,0.4); }
+    50% { box-shadow: 0 0 28px 10px rgba(80, 200, 255, 0.9), 0 2px 8px rgba(0,0,0,0.4); }
+  }
+
+  /* Tooltip label */
+  .btn-power::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 30, 70, 0.95);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    border: 1px solid rgba(100, 180, 255, 0.4);
+  }
+
+  .btn-power:hover::after {
+    opacity: 1;
+  }
+
+  /* Positions (en % de la taille du conteneur) */
+  /* Bouton 1 – Accueil / Salle d'étude (icône power en haut à gauche) */
+  #btn1 { left: 33.5%; top: 21%; }
+
+  /* Bouton 2 – CDI (zone milieu) */
+  #btn2 { left: 50%; top: 50%; }
+
+  /* Bouton 3 – Grand Couloir (milieu) */
+  #btn3 { left: 43.5%; top: 51%; }
+
+  /* Bouton 4 – Amphithéâtre / Self (bas droite) */
+  #btn4 { left: 71%; top: 83%; }
+</style>
+</head>
+<body>
+
+<div class="map-container">
+  <img src="Parcoure_InteractfiV1.png" alt="Parcours JPO Lycée Albert Camus" id="mapImg">
+
+  <div class="overlay">
+
+    <!-- Bouton 1 : Accueil / Salle d'étude -->
+    <a id="btn1" class="btn-power"
+       href="https://docs.google.com/forms/d/e/1FAIpQLSfi5Z0g7G2zJ_r_5fuzh8_YU6IKokoOqg0tJZRCCIZf9BkZSg/viewform?usp=header"
+       target="_blank"
+       data-label="Accueil – Salle d'étude">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 5 A7 7 0 0 1 12 19" stroke-width="2.5" fill="none"/>
+      </svg>
+    </a>
+
+    <!-- Bouton 2 : CDI -->
+    <a id="btn2" class="btn-power"
+       href="https://sansblazfix.github.io/V1JPO/"
+       target="_blank"
+       data-label="CDI">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 5 A7 7 0 0 1 12 19" stroke-width="2.5" fill="none"/>
+        <line x1="12" y1="2" x2="12" y2="6"/>
+      </svg>
+    </a>
+
+    <!-- Bouton 3 : Devinettes / Grand Couloir -->
+    <a id="btn3" class="btn-power"
+       href="https://sansblazfix.github.io/Devinettes/"
+       target="_blank"
+       data-label="Devinettes – Grand Couloir">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 5 A7 7 0 0 1 12 19" stroke-width="2.5" fill="none"/>
+        <line x1="12" y1="2" x2="12" y2="6"/>
+      </svg>
+    </a>
+
+    <!-- Bouton 4 : Amphithéâtre / Self -->
+    <a id="btn4" class="btn-power"
+       href="https://docs.google.com/forms/d/e/1FAIpQLSfi5Z0g7G2zJ_r_5fuzh8_YU6IKokoOqg0tJZRCCIZf9BkZSg/viewform?usp=header"
+       target="_blank"
+       data-label="Amphithéâtre – Self">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 5 A7 7 0 0 1 12 19" stroke-width="2.5" fill="none"/>
+        <line x1="12" y1="2" x2="12" y2="6"/>
+      </svg>
+    </a>
+
+  </div>
+</div>
+
+<script>
+  // Recalculate button positions relative to the actual rendered image
+  function positionButtons() {
+    const img = document.getElementById('mapImg');
+    const container = document.querySelector('.map-container');
+    const overlay = document.querySelector('.overlay');
+
+    const containerW = container.offsetWidth;
+    const containerH = container.offsetHeight;
+
+    const imgNaturalW = img.naturalWidth || 1456;
+    const imgNaturalH = img.naturalHeight || 816;
+
+    // Compute rendered image size (object-fit: contain)
+    const containerRatio = containerW / containerH;
+    const imgRatio = imgNaturalW / imgNaturalH;
+
+    let renderedW, renderedH, offsetX, offsetY;
+
+    if (containerRatio > imgRatio) {
+      renderedH = containerH;
+      renderedW = renderedH * imgRatio;
+      offsetX = (containerW - renderedW) / 2;
+      offsetY = 0;
+    } else {
+      renderedW = containerW;
+      renderedH = renderedW / imgRatio;
+      offsetX = 0;
+      offsetY = (containerH - renderedH) / 2;
+    }
+
+    // Positions as fraction of image dimensions (x, y = center of button)
+    // Based on the blue power buttons visible in the image:
+    // btn1: Accueil/Salle d'étude power button ~ (505/1456, 175/816)
+    // btn2: CDI area (no explicit power button shown, placed near CDI label) ~ (840/1456, 290/816)  
+    // btn3: Grand couloir power button ~ (790/1456, 415/816)
+    // btn4: Amphithéâtre/Self power button ~ (1050/1456, 695/816)
+
+    const positions = {
+      btn1: { fx: 505/1456, fy: 178/816 },
+      btn2: { fx: 840/1456, fy: 290/816 },
+      btn3: { fx: 790/1456, fy: 415/816 },
+      btn4: { fx: 1052/1456, fy: 695/816 },
+    };
+
+    for (const [id, pos] of Object.entries(positions)) {
+      const btn = document.getElementById(id);
+      if (!btn) continue;
+      const x = offsetX + pos.fx * renderedW;
+      const y = offsetY + pos.fy * renderedH;
+      btn.style.left = (x - 26) + 'px';
+      btn.style.top = (y - 26) + 'px';
+      // Override the % positioning
+      btn.style.position = 'absolute';
+    }
+  }
+
+  window.addEventListener('load', positionButtons);
+  window.addEventListener('resize', positionButtons);
+  document.getElementById('mapImg').addEventListener('load', positionButtons);
+</script>
+
+</body>
+</html>
